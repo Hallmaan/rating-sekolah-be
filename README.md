@@ -1,0 +1,1 @@
+# rating-sekolah-be
