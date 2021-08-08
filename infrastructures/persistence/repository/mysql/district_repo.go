@@ -51,9 +51,15 @@ func (m *mysqlDistrictRepository) fetch(ctx context.Context, query string, args 
 }
 
 func (m *mysqlDistrictRepository) Fetch(ctx context.Context, limit int64, offset int64) (result []domains.District, err error) {
-	query := `SELECT id,name FROM district LIMIT ? OFFSET ? `
 
-	result, err = m.fetch(ctx, query, limit, offset)
+	if(limit > 0){
+		query := `SELECT id,name FROM district LIMIT ? OFFSET ? `
+		result, err = m.fetch(ctx, query, limit, offset)
+	} else {
+		query := `SELECT id,name FROM district`
+		result, err = m.fetch(ctx, query)
+	}
+
 	fmt.Println(result, "result from")
 	if err != nil {
 		return nil, err

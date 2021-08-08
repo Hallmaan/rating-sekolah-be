@@ -51,11 +51,14 @@ func (m *mysqlProvinceRepository) fetch(ctx context.Context, query string, args 
 }
 
 func (m *mysqlProvinceRepository) Fetch(ctx context.Context, limit int64, offset int64) (result []domains.Province, err error) {
-	query := `SELECT id,name FROM province LIMIT ? OFFSET ? `
+	if(limit > 0){
+		query := `SELECT id,name FROM province LIMIT ? OFFSET ? `
+		result, err = m.fetch(ctx, query, limit, offset)
+	} else {
+		query := `SELECT id,name FROM province`
+		result, err = m.fetch(ctx, query)
+	}
 
-	//query := `SELECT id,sekolah FROM sekolah limit 1`
-
-	result, err = m.fetch(ctx, query, limit, offset)
 	fmt.Println(result, "result from")
 	if err != nil {
 		return nil, err
