@@ -4,7 +4,7 @@ import "context"
 
 type School struct {
 	Id              string   `json:"id"`
-	Sekolah         string  `json:"sekolah"`
+	Name         string  `json:"name"`
 	//Npsn            int64   `json:"npsn"`
 	//Bentuk          string  `json:"bentuk"`
 	//Status          string  `json:"status"`
@@ -19,9 +19,15 @@ type School struct {
 	//Longitude       float64 `json:"bujur"`
 }
 
+type SchoolDistrict struct {
+	DistrictCode        int64   `json:"kode_kab_kota"`
+	District            string  `json:"kabupaten_kota"`
+}
+
 type SchoolUseCase interface {
 	Fetch(ctx context.Context, limit int64, offset int64) ([]School, error)
 	GetByID(ctx context.Context, id string) (School, error)
+	//GetDistrict(ctx context.Context) (SchoolDistrict, error)
 	//Update(ctx context.Context, ar *School) error
 	//GetByTitle(ctx context.Context, title string) (School, error)
 	//Store(context.Context, *School) error
@@ -31,6 +37,7 @@ type SchoolUseCase interface {
 type SchoolRepository interface {
 	Fetch(ctx context.Context, limit int64, offset int64) ([]School, error)
 	GetByID(ctx context.Context, id string) (School, error)
+	//GetDistrict(ctx context.Context) (SchoolDistrict, error)
 	//Update(ctx context.Context, ar *School) error
 	//GetByTitle(ctx context.Context, title string) (School, error)
 	//Store(context.Context, *School) error

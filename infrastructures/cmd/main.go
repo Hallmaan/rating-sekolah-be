@@ -57,18 +57,36 @@ func main() {
 		}
 	}()
 
-	schoolRepo := repoMysql.NewMysqlSchoolRepository(dbConn)
 	timeoutContext := time.Duration(viper.GetInt("context.timeout")) * time.Second
-	schoolUsecase := usecases.NewSchoolUsecase(schoolRepo, timeoutContext)
-
 	router := gin.Default()
 	router.Use(cors.Default())
 
+	/* SCHOOL ADAPTER */
+	schoolRepo := repoMysql.NewMysqlSchoolRepository(dbConn)
+	schoolUsecase := usecases.NewSchoolUsecase(schoolRepo, timeoutContext)
 	schoolHandler := handlers.NewSchoolHandler(schoolUsecase)
+
+	/* PROVINCE ADAPTER */
+	provinceRepo := repoMysql.NewMysqlProvinceRepository(dbConn)
+	provinceUsecase := usecases.NewProvinceUsecase(provinceRepo, timeoutContext)
+	provinceHandler := handlers.NewProvinceHandler(provinceUsecase)
+
+	/* DISTRICT ADAPTER */
+	districtRepo := repoMysql.NewMysqlDistrictRepository(dbConn)
+	districtUsecase := usecases.NewDistrictUsecase(districtRepo, timeoutContext)
+	districtHandler := handlers.NewDistrictHandler(districtUsecase)
+
+	/* ANY ADAPTER */
 
 	api := router.Group("/api/v1")
 	api.GET("/school", schoolHandler.FetchSchool)
 	api.GET("/school/:id", schoolHandler.GetSchoolById)
+	api.GET("/school/province", provinceHandler.FetchProvince) //provinsi
+	//api.GET("/school/province/:id", provinceHandler.GetById) //provinsi
+	api.GET("/school/district", districtHandler.FetchDistrict) //kabupaten
+	//api.GET("/school/district/:id", districtHandler.GetById) //kabupaten
+	//api.GET("/school/level", schoolHandler.FetchSchool) //tingkat
+	//api.GET("/school/category", schoolHandler.FetchSchool) //kategori
 
 	router.Run()
 }

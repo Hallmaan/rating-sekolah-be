@@ -37,7 +37,7 @@ func (m *mysqlSchoolRepository) fetch(ctx context.Context, query string, args ..
 		t := domains.School{}
 		err = rows.Scan(
 			&t.Id,
-			&t.Sekolah,
+			&t.Name,
 			//&t.Npsn,
 			//&t.Bentuk,
 			//&t.Status,
@@ -63,8 +63,7 @@ func (m *mysqlSchoolRepository) fetch(ctx context.Context, query string, args ..
 }
 
 func (m *mysqlSchoolRepository) Fetch(ctx context.Context, limit int64, offset int64) (result []domains.School, err error) {
-	fmt.Println(limit, offset, "sa d as ansfasnfna")
-	query := `SELECT id,sekolah FROM sekolah LIMIT ? OFFSET ? `
+	query := `SELECT id,name FROM school LIMIT ? OFFSET ? `
 
 	//query := `SELECT id,sekolah FROM sekolah limit 1`
 
@@ -78,8 +77,8 @@ func (m *mysqlSchoolRepository) Fetch(ctx context.Context, limit int64, offset i
 }
 
 func (m *mysqlSchoolRepository) GetByID(ctx context.Context, id string) (result domains.School, err error) {
-	query := `SELECT id,sekolah
-  						FROM sekolah WHERE ID = ?`
+	query := `SELECT id,name
+  						FROM school WHERE ID = ?`
 
 	list, err := m.fetch(ctx, query, id)
 	if err != nil {
@@ -96,3 +95,17 @@ func (m *mysqlSchoolRepository) GetByID(ctx context.Context, id string) (result 
 
 	return
 }
+
+//func (m *mysqlSchoolRepository) GetDistrict(ctx context.Context) (result domains.SchoolDistrict, err error) {
+//	query := `SELECT id, name FROM District`
+//
+//	result, err = m.fetch(ctx, query, limit, offset)
+//	fmt.Println(result, "result from")
+//	if err != nil {
+//		return nil, err
+//	}
+//
+//	return
+//
+//
+//}

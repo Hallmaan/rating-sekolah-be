@@ -42,3 +42,14 @@ func (a *schoolUsecase) GetByID(c context.Context, id string) (res domains.Schoo
 	}
 	return
 }
+
+//func (a *schoolUsecase) GetDistrict(c context.Context) (res domains.SchoolDistrict, err error) {
+//	ctx, cancel := context.WithTimeout(c, a.contextTimeout)
+//	defer cancel()
+//
+//	res, err = a.schoolRepo.GetDistrict(ctx)
+//	if err != nil {
+//		return
+//	}
+//	return
+//}
