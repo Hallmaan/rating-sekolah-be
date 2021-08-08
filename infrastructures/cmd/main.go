@@ -68,6 +68,7 @@ func main() {
 
 	api := router.Group("/api/v1")
 	api.GET("/school", schoolHandler.FetchSchool)
+	api.GET("/school/:id", schoolHandler.GetSchoolById)
 
 	router.Run()
 }

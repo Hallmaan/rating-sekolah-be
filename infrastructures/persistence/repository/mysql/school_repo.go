@@ -6,6 +6,7 @@ import (
 	"fmt"
 	"github.com/sirupsen/logrus"
 	"rating-sekolah/domains"
+	"rating-sekolah/helpers"
 )
 
 type mysqlSchoolRepository struct {
@@ -17,8 +18,8 @@ func NewMysqlSchoolRepository(Conn *sql.DB) domains.SchoolRepository {
 }
 
 func (m *mysqlSchoolRepository) fetch(ctx context.Context, query string, args ...interface{}) (result []domains.School, err error) {
-	//rows, err := m.Conn.QueryContext(ctx, query, args...)
-	rows, err := m.Conn.QueryContext(ctx, query)
+	rows, err := m.Conn.QueryContext(ctx, query, args...)
+	//rows, err := m.Conn.QueryContext(ctx, query)
 	if err != nil {
 		logrus.Error(err)
 		return nil, err
@@ -62,15 +63,36 @@ func (m *mysqlSchoolRepository) fetch(ctx context.Context, query string, args ..
 }
 
 func (m *mysqlSchoolRepository) Fetch(ctx context.Context, limit int64, offset int64) (result []domains.School, err error) {
-	//query := `SELECT * FROM sekolah LIMIT ? OFFSET ? `
+	fmt.Println(limit, offset, "sa d as ansfasnfna")
+	query := `SELECT id,sekolah FROM sekolah LIMIT ? OFFSET ? `
 
-	query := `SELECT id,sekolah FROM sekolah limit 1`
+	//query := `SELECT id,sekolah FROM sekolah limit 1`
 
 	result, err = m.fetch(ctx, query, limit, offset)
 	fmt.Println(result, "result from")
 	if err != nil {
 		return nil, err
 	}
+
+	return
+}
+
+func (m *mysqlSchoolRepository) GetByID(ctx context.Context, id string) (result domains.School, err error) {
+	query := `SELECT id,sekolah
+  						FROM sekolah WHERE ID = ?`
+
+	list, err := m.fetch(ctx, query, id)
+	if err != nil {
+		return domains.School{}, err
+	}
+
+	if len(list) > 0 {
+		result = list[0]
+	} else {
+		return result, helpers.ErrNotFound
+	}
+
+	fmt.Println(result)
 
 	return
 }

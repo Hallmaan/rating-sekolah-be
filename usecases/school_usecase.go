@@ -31,3 +31,14 @@ func (a *schoolUsecase) Fetch(c context.Context, limit int64, offset int64) (res
 
 	return
 }
+
+func (a *schoolUsecase) GetByID(c context.Context, id string) (res domains.School, err error) {
+	ctx, cancel := context.WithTimeout(c, a.contextTimeout)
+	defer cancel()
+
+	res, err = a.schoolRepo.GetByID(ctx, id)
+	if err != nil {
+		return
+	}
+	return
+}

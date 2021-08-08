@@ -21,7 +21,7 @@ type School struct {
 
 type SchoolUseCase interface {
 	Fetch(ctx context.Context, limit int64, offset int64) ([]School, error)
-	//GetByID(ctx context.Context, id int64) (School, error)
+	GetByID(ctx context.Context, id string) (School, error)
 	//Update(ctx context.Context, ar *School) error
 	//GetByTitle(ctx context.Context, title string) (School, error)
 	//Store(context.Context, *School) error
@@ -30,7 +30,7 @@ type SchoolUseCase interface {
 
 type SchoolRepository interface {
 	Fetch(ctx context.Context, limit int64, offset int64) ([]School, error)
-	//GetByID(ctx context.Context, id int64) (School, error)
+	GetByID(ctx context.Context, id string) (School, error)
 	//Update(ctx context.Context, ar *School) error
 	//GetByTitle(ctx context.Context, title string) (School, error)
 	//Store(context.Context, *School) error
