@@ -3,7 +3,6 @@ package mysql
 import (
 	"context"
 	"database/sql"
-	"fmt"
 	"github.com/sirupsen/logrus"
 	"rating-sekolah/domains"
 	"rating-sekolah/helpers"
@@ -59,7 +58,6 @@ func (m *mysqlProvinceRepository) Fetch(ctx context.Context, limit int64, offset
 		result, err = m.fetch(ctx, query)
 	}
 
-	fmt.Println(result, "result from")
 	if err != nil {
 		return nil, err
 	}
@@ -81,8 +79,6 @@ func (m *mysqlProvinceRepository) GetByID(ctx context.Context, id string) (resul
 	} else {
 		return result, helpers.ErrNotFound
 	}
-
-	fmt.Println(result)
 
 	return
 }

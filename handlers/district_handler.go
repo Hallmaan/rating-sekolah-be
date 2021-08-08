@@ -1,7 +1,6 @@
 package handlers
 
 import (
-	"fmt"
 	"github.com/gin-gonic/gin"
 	"net/http"
 	"rating-sekolah/domains"
@@ -20,8 +19,6 @@ func NewDistrictHandler(us domains.DistrictUseCase) *DistrictHandler {
 func (s *DistrictHandler) FetchDistrict(c *gin.Context) {
 	limit, _ := strconv.Atoi(c.Query("limit"))
 	ctx := c.Request.Context()
-
-	fmt.Println(limit, "limit data")
 
 	district, err := s.AUsecase.Fetch(ctx, int64(limit), 0)
 	if err != nil {

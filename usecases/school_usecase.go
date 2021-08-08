@@ -2,7 +2,6 @@ package usecases
 
 import (
 	"context"
-	"fmt"
 	"rating-sekolah/domains"
 	"time"
 )
@@ -24,7 +23,6 @@ func (a *schoolUsecase) Fetch(c context.Context, limit int64, offset int64) (res
 	defer cancel()
 
 	res, err = a.schoolRepo.Fetch(ctx, limit, offset)
-	fmt.Println(res, "response")
 	if err != nil {
 		return nil, err
 	}

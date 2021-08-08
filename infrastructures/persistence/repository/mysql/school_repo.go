@@ -3,7 +3,6 @@ package mysql
 import (
 	"context"
 	"database/sql"
-	"fmt"
 	"github.com/sirupsen/logrus"
 	"rating-sekolah/domains"
 	"rating-sekolah/helpers"
@@ -68,7 +67,6 @@ func (m *mysqlSchoolRepository) Fetch(ctx context.Context, limit int64, offset i
 	//query := `SELECT id,sekolah FROM sekolah limit 1`
 
 	result, err = m.fetch(ctx, query, limit, offset)
-	fmt.Println(result, "result from")
 	if err != nil {
 		return nil, err
 	}
@@ -91,21 +89,5 @@ func (m *mysqlSchoolRepository) GetByID(ctx context.Context, id string) (result 
 		return result, helpers.ErrNotFound
 	}
 
-	fmt.Println(result)
-
 	return
 }
-
-//func (m *mysqlSchoolRepository) GetDistrict(ctx context.Context) (result domains.SchoolDistrict, err error) {
-//	query := `SELECT id, name FROM District`
-//
-//	result, err = m.fetch(ctx, query, limit, offset)
-//	fmt.Println(result, "result from")
-//	if err != nil {
-//		return nil, err
-//	}
-//
-//	return
-//
-//
-//}

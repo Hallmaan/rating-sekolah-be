@@ -1,7 +1,6 @@
 package handlers
 
 import (
-	"fmt"
 	"github.com/gin-gonic/gin"
 	"net/http"
 	"rating-sekolah/domains"
@@ -28,8 +27,6 @@ func (s *SchoolHandler) FetchSchool(c *gin.Context) {
 		return
 	}
 
-	fmt.Println(school, "lasldlasda")
-
 	response := helpers.APIResponse("List of school", http.StatusOK, "success", school)
 	c.JSON(http.StatusOK, response)
 }
@@ -44,8 +41,6 @@ func (s *SchoolHandler) GetSchoolById(c *gin.Context) {
 		c.JSON(http.StatusBadRequest, response)
 		return
 	}
-
-	fmt.Println(school, "lasldlasda")
 
 	response := helpers.APIResponse("List of school", http.StatusOK, "success", school)
 	c.JSON(http.StatusOK, response)
