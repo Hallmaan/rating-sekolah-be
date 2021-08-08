@@ -33,3 +33,18 @@ func (s *DistrictHandler) FetchDistrict(c *gin.Context) {
 	response := helpers.APIResponse("List of school district", http.StatusOK, "success", district)
 	c.JSON(http.StatusOK, response)
 }
+
+func (s *DistrictHandler) GetDistrictById(c *gin.Context) {
+	id := c.Param("id")
+	ctx := c.Request.Context()
+
+	province, err := s.AUsecase.GetByID(ctx, id)
+	if err != nil {
+		response := helpers.APIResponse("Error to get school district", http.StatusBadRequest, "error", nil)
+		c.JSON(http.StatusBadRequest, response)
+		return
+	}
+
+	response := helpers.APIResponse("List of school district", http.StatusOK, "success", province)
+	c.JSON(http.StatusOK, response)
+}

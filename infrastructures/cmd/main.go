@@ -82,9 +82,9 @@ func main() {
 	api.GET("/school", schoolHandler.FetchSchool)
 	api.GET("/school/:id", schoolHandler.GetSchoolById)
 	api.GET("/school/province", provinceHandler.FetchProvince) //provinsi
-	//api.GET("/school/province/:id", provinceHandler.GetById) //provinsi
+	api.GET("/school/province/:id", provinceHandler.GetProvinceById) //provinsi
 	api.GET("/school/district", districtHandler.FetchDistrict) //kabupaten
-	//api.GET("/school/district/:id", districtHandler.GetById) //kabupaten
+	api.GET("/school/district/:id", districtHandler.GetDistrictById) //kabupaten
 	//api.GET("/school/level", schoolHandler.FetchSchool) //tingkat
 	//api.GET("/school/category", schoolHandler.FetchSchool) //kategori
 

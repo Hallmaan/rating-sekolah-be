@@ -50,19 +50,3 @@ func (s *SchoolHandler) GetSchoolById(c *gin.Context) {
 	response := helpers.APIResponse("List of school", http.StatusOK, "success", school)
 	c.JSON(http.StatusOK, response)
 }
-
-//func (s *SchoolHandler) GetDistrict(c *gin.Context) {
-//	ctx := c.Request.Context()
-//
-//	school, err := s.AUsecase.GetDistrict(ctx)
-//	if err != nil {
-//		response := helpers.APIResponse("Error to get schools", http.StatusBadRequest, "error", nil)
-//		c.JSON(http.StatusBadRequest, response)
-//		return
-//	}
-//
-//	fmt.Println(school, "lasldlasda")
-//
-//	response := helpers.APIResponse("List of school", http.StatusOK, "success", school)
-//	c.JSON(http.StatusOK, response)
-//}

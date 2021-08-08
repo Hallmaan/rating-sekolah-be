@@ -30,3 +30,18 @@ func (s *ProvinceHandler) FetchProvince(c *gin.Context) {
 	response := helpers.APIResponse("List of school province", http.StatusOK, "success", province)
 	c.JSON(http.StatusOK, response)
 }
+
+func (s *ProvinceHandler) GetProvinceById(c *gin.Context) {
+	id := c.Param("id")
+	ctx := c.Request.Context()
+
+	province, err := s.AUsecase.GetByID(ctx, id)
+	if err != nil {
+		response := helpers.APIResponse("Error to get school province", http.StatusBadRequest, "error", nil)
+		c.JSON(http.StatusBadRequest, response)
+		return
+	}
+
+	response := helpers.APIResponse("List of school province", http.StatusOK, "success", province)
+	c.JSON(http.StatusOK, response)
+}
